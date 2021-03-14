@@ -15,12 +15,6 @@
 <script>
   import homes from '~/data/homes'
 
-  if (process.client) {
-    window.initMap = function(){
-      console.log('test')
-    }
-  }
-
   export default {
     head () {
       return {
@@ -28,7 +22,11 @@
         script: [{
           src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDEn4kUJoIxI3VceBclNzmaatkzmwiIpEE&libraries=places&callback=initMap",
           hid: "map",
-          defer: true
+          defer: true,
+          skip: process.client && window.mapLoaded
+        }, {
+          innerHTML: "window.initMap = function () { window.mapLoaded = true }",
+          hid: 'map-init'
         }]
       }
     },
@@ -38,7 +36,6 @@
       }
     },
     mounted () {
-      console.log(window.google)
       const mapOptions = {
         zoom: 18,
         center: new window.google.maps.LatLng(this.home._geoloc.lat, this.home._geoloc.lng),
