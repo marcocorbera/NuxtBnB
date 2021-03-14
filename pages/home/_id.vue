@@ -18,12 +18,7 @@
   export default {
     head () {
       return {
-        title: this.home.title,
-        script: [{
-          src:"https://maps.googleapis.com/maps/api/js?key=AIzaSyDEn4kUJoIxI3VceBclNzmaatkzmwiIpEE&libraries=places",
-          hid:"map",
-          defer: true
-        }]
+        title: this.home.title
       }
     },
     data () {
